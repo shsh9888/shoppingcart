@@ -7,7 +7,11 @@ import java.util.ArrayList;
 
 public interface OrderDaoInterface {
 
-    void addOrder(Order order);
+    Boolean addOrder(Order order);
+
     ArrayList<Order> getOrdersByUser(String username);
+
+    Boolean checkoutOrder(String orderId);
+
 
 }

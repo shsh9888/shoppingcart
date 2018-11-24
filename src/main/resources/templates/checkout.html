@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+<th:block th:include="/_header"></th:block>
+<th:block th:include="/_menu"></th:block>
+
+<div class="page-title">Your Cart</div>
+
+<div class="product-preview-container" th:each="item : ${items}">
+    <ul>
+        <li>Code: <span th:utext="${item.getId()}"></span></li>
+        <li>Name: <span th:utext="${item.getItem_name()}"></span></li>
+        <li>Price: <span th:utext="${item.getPrice()}"></span></li>
+    </ul>
+</div>
+
+
+
+<div class="login-container">
+    <h3>Select your payment method</h3>
+    <br>
+    <form method="POST"
+          th:action="@{/placeOrder}">
+        <table>
+            <tr>
+                <div>
+                    <input type="radio" id="huey" name="payment" value="Visa"
+                           checked>
+                    <label for="huey">Visa</label>
+                </div>
+
+                <div>
+                    <input type="radio" id="dewey" name="payment" value="MasterCard">
+                    <label for="dewey">Master</label>
+                </div>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Place the order" />
+                </td>
+            </tr>
+
+        </table>
+    </form>
+
+</div>
+
+
+
+<div>
+
+    <span class="error-message" th:utext="${error}"></span>
+
+</div>
+
+
+
+
+<th:block th:include="/_footer"></th:block>
+
+</body>
+</html>

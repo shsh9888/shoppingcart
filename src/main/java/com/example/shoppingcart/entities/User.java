@@ -3,7 +3,7 @@ package com.example.shoppingcart.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class User {
     @Id
     @Column(name = "username")
@@ -22,8 +22,15 @@ public class User {
     @Column(name = "role")
     private String role;
 
+    public User(String username, String name, String password, String email, String role) {
+        this.username = username;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+    }
 
-    public User() {}
+    public User(){}
 
     public String getId() {
         return username;

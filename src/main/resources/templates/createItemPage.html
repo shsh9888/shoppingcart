@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create an Item</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+
+<!--<th:block th:include="/_header"></th:block>-->
+
+<div class="page-title">Item</div>
+<div th:if="${error!= null}" class="error-message" th:utext="${error}">
+</div>
+
+<form  th:action="@{/createItem}"
+       method="POST" enctype="multipart/form-data">
+    <table style="text-align:left;">
+
+        <tr>
+            <td>Item Name *</td>
+            <td><input name="name"  /></td>
+
+        </tr>
+        <tr>
+            <td>Price *</td>
+            <td><input name="price"/></td>
+
+        </tr>
+        <tr>
+            <td>Select a Category</td>
+            <select  name="category_name">
+                <option  name="category_name" th:each="cat : ${categoryList}" th:value="${cat.getCategory_name()}" th:text="${cat.getCategory_name()}"></option>
+            </select>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>
+                <input type="submit" value="Submit" />
+                <input type="reset" value="Reset" />
+            </td>
+        </tr>
+    </table>
+</form>
+
+<th:block th:include="/_footer"></th:block>
+
+</body>
+</html>

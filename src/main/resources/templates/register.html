@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+<!--<th:block th:include="/_header"></th:block>-->
+<!--<th:block th:include="/_menu"></th:block>-->
+
+<div class="page-title">Register here</div>
+
+<div class="login-container">
+    <h3>Enter username and password</h3>
+    <br>
+    <form method="POST"
+          th:action="@{/register}">
+        <table>
+            <tr>
+                <td> Name </td>
+                <td><input name="name" /></td>
+            </tr>
+            <tr>
+                <td> Email </td>
+                <td><input name="email" /></td>
+            </tr>
+            <tr>
+                <td>User Name *</td>
+                <td><input name="userName" /></td>
+            </tr>
+            <tr>
+                <td>Password *</td>
+                <td><input type="password" name="password" /></td>
+            </tr>
+            <tr>
+                <td>Role</td>
+                <td><select name="role" default="customer">
+                    <option name="role" value="customer">Customer</option>
+                    <option name="role" value="seller">Seller</option>
+                    <option name="role" value="admin">Admin</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Register" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <span class="error-message" th:utext="${error}"></span>
+</div>
+
+<!--<div style="text-align:left">-->
+<!--<h3>User/Password:</h3>-->
+<!--<ul>-->
+<!--<li>employee1/123</li>-->
+<!--<li>manager1/123</li>-->
+<!--</ul>-->
+<!--</div>-->
+
+<th:block th:include="/_footer"></th:block>
+
+</body>
+</html>

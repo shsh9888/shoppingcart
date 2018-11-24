@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+<!--<th:block th:include="/_header"></th:block>-->
+<!--<th:block th:include="/_menu"></th:block>-->
+
+<div class="page-title">Register here</div>
+
+<div class="login-container">
+    <h3>Add a Category</h3>
+    <br>
+    <form method="POST"
+          th:action="@{/addCategory}">
+        <table>
+            <tr>
+                <td> Category Name </td>
+                <td><input name="name" /></td>
+            </tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Register" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <span class="error-message" th:utext="${error}"></span>
+</div>
+
+<!--<div style="text-align:left">-->
+<!--<h3>User/Password:</h3>-->
+<!--<ul>-->
+<!--<li>employee1/123</li>-->
+<!--<li>manager1/123</li>-->
+<!--</ul>-->
+<!--</div>-->
+
+<th:block th:include="/_footer"></th:block>
+
+</body>
+</html>

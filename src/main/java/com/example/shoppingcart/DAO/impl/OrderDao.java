@@ -10,9 +10,18 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+
+@Transactional
+@Repository
+@Service
+@ComponentScan
 
 public class OrderDao implements OrderDaoInterface {
     @Autowired
@@ -21,16 +30,10 @@ public class OrderDao implements OrderDaoInterface {
 
     @Override
     public Boolean addOrder(Order order) {
-        Session session = sessionFactory.openSession().getSession();
-        Order newOrder = new Order();
-        newOrder.setItems((ArrayList<Item>) order.getItems());
-        newOrder.setOwner(order.getOwner());
-        newOrder.setStatus(order.getStatus());
-        newOrder.setTotal_price(order.getTotal_price());
+        Session session = sessionFactory.getCurrentSession();
         try {
-            session.save(newOrder);
+            session.save(order);
             return true;
-
         }catch (Exception e){
             return  false;
         }

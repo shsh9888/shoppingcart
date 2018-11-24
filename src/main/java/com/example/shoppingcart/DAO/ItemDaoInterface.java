@@ -5,6 +5,7 @@ import com.example.shoppingcart.entities.Item;
 import java.util.ArrayList;
 
 public interface ItemDaoInterface {
+    Item getItem(String id);
     ArrayList<Item> getAllItems();
     ArrayList<Item> getAllItemsAddedByUser(String username);
     ArrayList<Item> searchByName(String itemName);

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Info</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+
+<th:block th:include="/_header"></th:block>
+<th:block th:include="/_menu"></th:block>
+
+<div class="page-title">Account Info</div>
+<div class="account-container">
+    <ul>
+        <li>Hi <span th:utext="${user.getName()}"></span></li>
+        <li>
+
+            <ul>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<th:block th:include="/_footer"></th:block>
+
+</body>
+</html>

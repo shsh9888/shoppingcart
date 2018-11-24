@@ -6,8 +6,17 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
+
+@Transactional
+@Repository
+@Service
+@ComponentScan
 
 public class ItemDao implements ItemDaoInterface {
 
@@ -15,10 +24,16 @@ public class ItemDao implements ItemDaoInterface {
     private SessionFactory sessionFactory;
 
     @Override
+    public Item getItem(String id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.find(Item.class, id);
+    }
+
+    @Override
     public ArrayList<Item> getAllItems() {
         Session session = sessionFactory.getCurrentSession();
-        String sql = "Select i from " + Item.class + " i ";
-        Query<Item> query = session.createQuery(sql);
+        String sql = "from Item i";
+        Query query = session.createQuery(sql);
         return (ArrayList<Item>) query.getResultList();
     }
 

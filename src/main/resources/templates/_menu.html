@@ -1,0 +1,40 @@
+<div class="menu-container"
+     xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" >
+    <div th:if="${user!= null}" th:switch="${user.getRole()}">
+    <th:block th:case="'customer'">
+        <a th:href="@{/searchProducts}">
+            Search Products
+        </a>
+        |
+        <a th:href="@{/productList}">
+            Shop
+        </a>
+        |
+        <a th:href="@{/orderList}">
+            Order List
+        </a>
+    </th:block>
+    <th:block th:case="'admin'">
+
+        <a th:href="@{/searchProducts}">
+            Search Products
+        </a>
+        |
+        <a th:href="@{/orderList}">
+            Order List
+        </a>
+
+    </th:block>
+    <th:block th:case="'seller'">
+        <a th:href="@{/createItemPage}">
+            Create Product
+        </a>
+        |
+        <a th:href="@{/category}">
+            Create Category
+      </a>
+    </th:block>
+
+    </div>
+</div>

@@ -1,12 +1,14 @@
 package com.example.shoppingcart.entities;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Item")
+@Table(name = "items")
 public class Item {
-    @Id @GeneratedValue
-    @Column(name = "item_id")
+    @Id @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String item_id;
 
     @Column(name = "item_name")
@@ -25,6 +27,12 @@ public class Item {
     private Category item_category;
     public Item() {}
 
+    public Item(String item_name, Float price, User owner, Category item_category) {
+        this.item_name = item_name;
+        this.price = price;
+        this.owner = owner;
+        this.item_category = item_category;
+    }
 
     public String getId() {
         return item_id;

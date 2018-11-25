@@ -8,6 +8,10 @@ import com.example.shoppingcart.entities.Category;
 import com.example.shoppingcart.entities.Item;
 import com.example.shoppingcart.entities.Order;
 import com.example.shoppingcart.entities.User;
+import com.example.shoppingcart.logger.LoggerFactory;
+import com.example.shoppingcart.payment.MasterCard;
+import com.example.shoppingcart.payment.Payment;
+import com.example.shoppingcart.payment.Visa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +39,10 @@ public class UserController {
     OrderDao orderDao;
 
     private User loggedInUser;
+
+    private Payment pay;
+
+//    private LoggerFactory loggerFactory = new LoggerFactory();
 
     private ArrayList<Item> cartItems =new ArrayList<>();
 
@@ -143,6 +151,8 @@ public class UserController {
             return "home";
         }
         model.addAttribute("error", "There was some issue Please try again");
+        LoggerFactory.getLogger(LoggerFactory.DEBUG).log("Item creation failed please check the DB");
+
         return "createItemPage";
     }
 
@@ -151,13 +161,20 @@ public class UserController {
     public String placeOrder(HttpServletRequest request,
                              @RequestParam(value = "payment") String paymentMethod,
                              Model model) {
-
-       if(orderDao.addOrder(new Order(loggedInUser, cartItems, "Placed"))) {
+        Order order = new Order(loggedInUser, cartItems, "Placed");
+        if (paymentMethod.equals("Visa")) {
+            pay = new Visa();
+        }else if (paymentMethod.equals("MasterCard")) {
+            pay = new MasterCard();
+        }
+       if( pay.processPayment(order.getId(), order.getTotal_price()) && orderDao.addOrder(order)) {
            model.addAttribute("user", loggedInUser);
            return "home";
         }
         model.addAttribute("items", cartItems);
         model.addAttribute("user", loggedInUser);
+        LoggerFactory.getLogger(LoggerFactory.DEBUG).log("Error in te payment or while saving the order");
+
         return "checkout";
     }
 
@@ -170,6 +187,8 @@ public class UserController {
         model.addAttribute("items", itemDao.getAllItems());
         model.addAttribute("user", loggedInUser);
         model.addAttribute("message", "Item " + i.getItem_name() + " has been added to your cart");
+
+        LoggerFactory.getLogger(LoggerFactory.INFO).log("Item " + i.getItem_name() + " has been added to your cart");
 
         return "productList";
     }

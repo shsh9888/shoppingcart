@@ -44,16 +44,17 @@ public class UserController {
 
 //    private LoggerFactory loggerFactory = new LoggerFactory();
 
-    private ArrayList<Item> cartItems =new ArrayList<>();
+    private ArrayList<Item> cartItems = new ArrayList<>();
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String login(HttpServletRequest request, Model model) {
 //        model.addAttribute("user", "Shravan");
         return "login";
     }
+
     @RequestMapping(value = {"/logout"}, method = RequestMethod.GET)
     public String logout(HttpServletRequest request, Model model) {
-        loggedInUser =null;
+        loggedInUser = null;
         return "login";
     }
 
@@ -139,13 +140,13 @@ public class UserController {
 
     @RequestMapping(value = {"/createItem"}, method = RequestMethod.POST)
     public String createItem(HttpServletRequest request,
-                              @RequestParam(value = "name") String name,
+                             @RequestParam(value = "name") String name,
                              @RequestParam(value = "price") Float price,
                              @RequestParam(value = "category_name") String category,
                              Model model) {
 
         Category cat = categoryDao.getCategory(category);
-        Item item = new Item(name,price,loggedInUser,cat);
+        Item item = new Item(name, price, loggedInUser, cat);
         if (itemDao.addItem(item)) {
             model.addAttribute("user", loggedInUser);
             return "home";
@@ -164,12 +165,12 @@ public class UserController {
         Order order = new Order(loggedInUser, cartItems, "Placed");
         if (paymentMethod.equals("Visa")) {
             pay = new Visa();
-        }else if (paymentMethod.equals("MasterCard")) {
+        } else if (paymentMethod.equals("MasterCard")) {
             pay = new MasterCard();
         }
-       if( pay.processPayment(order.getId(), order.getTotal_price()) && orderDao.addOrder(order)) {
-           model.addAttribute("user", loggedInUser);
-           return "home";
+        if (pay.processPayment(order.getId(), order.getTotal_price()) && orderDao.addOrder(order)) {
+            model.addAttribute("user", loggedInUser);
+            return "home";
         }
         model.addAttribute("items", cartItems);
         model.addAttribute("user", loggedInUser);
@@ -191,6 +192,45 @@ public class UserController {
         LoggerFactory.getLogger(LoggerFactory.INFO).log("Item " + i.getItem_name() + " has been added to your cart");
 
         return "productList";
+    }
+
+
+    @RequestMapping(value = {"/orderList"}, method = RequestMethod.GET)
+    public String getOrders(HttpServletRequest request, Model model) {
+
+        ArrayList<Order> orders = loggedInUser.getRole().equals("admin") ? orderDao.getAllOrders() : orderDao.getOrdersByUser(loggedInUser);
+
+        LoggerFactory.getLogger(LoggerFactory.DEBUG).log("Fetch orders called by user " + loggedInUser.getUsername() + " with role: " + loggedInUser.getRole());
+        model.addAttribute("orders", orders);
+        model.addAttribute("user", loggedInUser);
+        return "orderList";
+    }
+
+    @RequestMapping(value = {"/searchProducts"}, method = RequestMethod.POST)
+    public String searchProducts(HttpServletRequest request,
+                                 @RequestParam(value = "searchKey") String search,
+                                 Model model) {
+
+        ArrayList<Item> items = itemDao.searchByName(search);
+        if (items.size() == 0) {
+            model.addAttribute("message","Sorry, There are no items with the key " +search + " !!");
+            LoggerFactory.getLogger(LoggerFactory.INFO).log("Sorry, There are no items with the key " +search + " !!");
+
+        }
+
+        LoggerFactory.getLogger(LoggerFactory.DEBUG).log("Searching for items with the key " +search);
+        model.addAttribute("items", items);
+        model.addAttribute("user", loggedInUser);
+        return "searchProducts";
+    }
+
+    @RequestMapping(value = {"/searchProducts"}, method = RequestMethod.GET)
+    public String searchProducts(HttpServletRequest request,
+                                 Model model) {
+
+        model.addAttribute("items", null);
+        model.addAttribute("user", loggedInUser);
+        return "searchProducts";
     }
 
 }

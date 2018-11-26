@@ -9,9 +9,13 @@ public interface OrderDaoInterface {
 
     Boolean addOrder(Order order);
 
-    ArrayList<Order> getOrdersByUser(String username);
+    ArrayList<Order> getOrdersByUser(User username);
+    ArrayList<Order> getAllOrders();
+
 
     Boolean checkoutOrder(String orderId);
+
+
 
 
 }

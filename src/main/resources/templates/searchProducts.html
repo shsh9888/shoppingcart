@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+<th:block th:include="/_header"></th:block>
+<th:block th:include="/_menu"></th:block>
+
+<div class="login-container">
+    <h3>Welcome to Product search</h3>
+    <br>
+    <form method="POST"
+          th:action="@{/searchProducts}">
+        <table>
+            <tr>
+                <td>Search for</td>
+                <td><input name="searchKey" /></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="search" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div class="page-title"></div>
+
+<div class="product-preview-container" th:each="item : ${items}">
+    <ul>
+        <li>Code: <span th:utext="${item.getId()}"></span></li>
+        <li>Name: <span th:utext="${item.getItem_name()}"></span></li>
+        <li>Price: <span th:utext="${item.getPrice()}"></span></li>
+        <!--<li>-->
+            <!--<a th:href="@{|/buyProduct?id=${item.getId()}|}">Buy Now</a>-->
+        <!--</li>-->
+    </ul>
+</div>
+
+<div><span th:if="${message!= null}" th:text="${message}"></span></div>
+
+
+
+<th:block th:include="/_footer"></th:block>
+
+</body>
+</html>

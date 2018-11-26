@@ -49,11 +49,12 @@ public class ItemDao implements ItemDaoInterface {
     @Override
     public ArrayList<Item> searchByName(String itemName) {
         Session session = sessionFactory.getCurrentSession();
-        String sql = "Select i from " + Item.class + " i where i.item_name like :itemname";
+        String sql = "from Item i where i.item_name like :itemname";
         Query<Item> query = session.createQuery(sql);
-        query.setParameter("itemname",itemName);
-        return (ArrayList<Item>) query.getResultList();    }
-;
+        query.setParameter("itemname","%" +itemName +"%");
+        return (ArrayList<Item>) query.getResultList();
+    }
+
 
     @Override
     public Boolean addItem(Item item) {

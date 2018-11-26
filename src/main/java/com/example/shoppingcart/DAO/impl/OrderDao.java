@@ -3,6 +3,7 @@ package com.example.shoppingcart.DAO.impl;
 import com.example.shoppingcart.DAO.OrderDaoInterface;
 import com.example.shoppingcart.entities.Item;
 import com.example.shoppingcart.entities.Order;
+import com.example.shoppingcart.entities.User;
 import org.aspectj.weaver.ast.Or;
 import org.hibernate.Criteria;
 import org.hibernate.QueryException;
@@ -42,11 +43,21 @@ public class OrderDao implements OrderDaoInterface {
     }
 
     @Override
-    public ArrayList<Order> getOrdersByUser(String username) {
+    public ArrayList<Order> getOrdersByUser(User username) {
         Session session = sessionFactory.getCurrentSession();
-        String sql = "Select O from " + Order.class + " O where O.owner=:owner";
+        String sql = "from Order O where O.owner=:ow";
         Query<Order> query = session.createQuery(sql);
-        query.setParameter("owner", username);
+        query.setParameter("ow", username);
+
+        return  (ArrayList<Order>) query.getResultList();
+
+    }
+
+    @Override
+    public ArrayList<Order> getAllOrders() {
+        Session session = sessionFactory.getCurrentSession();
+        String sql = "From Order o";
+        Query<Order> query = session.createQuery(sql);
         return  (ArrayList<Order>) query.getResultList();
 
     }

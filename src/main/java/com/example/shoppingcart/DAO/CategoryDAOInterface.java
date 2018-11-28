@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+/**
+ * Interface exposes all the db operations to be done with resepct to Category table
+ */
 @Service
 public interface CategoryDAOInterface {
     Boolean addCategory(Category category);

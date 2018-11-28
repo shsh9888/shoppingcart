@@ -4,6 +4,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
+/**
+ * Entity class correspondint to the Category tablle in the db
+ */
 public class User {
     @Id
     @Column(name = "username")

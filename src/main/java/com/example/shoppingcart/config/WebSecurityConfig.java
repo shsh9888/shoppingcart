@@ -13,6 +13,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+/**
+ * Security configs
+ */
 @Configuration
 @EnableAutoConfiguration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -25,7 +28,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
+    /**
+     * To disable the default login page from thymeleaf
+     * @param security
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity security) throws Exception
     {

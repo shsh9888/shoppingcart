@@ -1,5 +1,8 @@
 package com.example.shoppingcart.logger;
 
+/**
+ * Implementation of logger with type Debug
+ */
 public class DebugLogger implements Logger{
 
 

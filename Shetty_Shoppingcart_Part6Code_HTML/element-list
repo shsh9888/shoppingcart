@@ -1,0 +1,8 @@
+com.example.shoppingcart
+com.example.shoppingcart.config
+com.example.shoppingcart.controllers
+com.example.shoppingcart.DAO
+com.example.shoppingcart.DAO.impl
+com.example.shoppingcart.entities
+com.example.shoppingcart.logger
+com.example.shoppingcart.payment

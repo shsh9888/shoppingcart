@@ -18,12 +18,20 @@ import javax.transaction.Transactional;
 @Repository
 @Service
 @ComponentScan
+/**
+ * DAO pattern : pattern Implements  all the db operations to be done with resepct to User table
+ */
 public class UserDao implements UserDaoInterface {
 
 
     @Autowired
     private  SessionFactory sessionFactory;
 
+    /**
+     * Returns the User object for given username
+     * @param username
+     * @return
+     */
     @Override
     public User getUser(String username) {
         Session session = this.sessionFactory.getCurrentSession();
@@ -31,9 +39,13 @@ public class UserDao implements UserDaoInterface {
 
     }
 
+    /**
+     * Saves the given user with properties
+     * @param user
+     * @return
+     */
     @Override
     public Boolean saveUser(User user) {
-        System.out.println("sssssssssssssssssssssssssssssssssssss"+sessionFactory);
         Session session = sessionFactory.getCurrentSession();
         User us = new User();
         us.setEmail(user.getEmail());
@@ -50,7 +62,10 @@ public class UserDao implements UserDaoInterface {
         return true;
     }
 
-
+    /**
+     * update the user for given properties
+     * @param user
+     */
     @Override
     public void updateUser(User user) {
         Session session = sessionFactory.getCurrentSession();
@@ -63,12 +78,21 @@ public class UserDao implements UserDaoInterface {
         session.update(us);
     }
 
+    /**
+     * Delete the user given the user object
+     * @param user
+     */
     @Override
     public void DeleteUser(User user) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(user);
     }
 
+    /**
+     * Given an username return the user for it.
+     * @param username
+     * @return
+     */
     @Override
     public User loadUserByUsername(String username) {
         Session session = sessionFactory.getCurrentSession();

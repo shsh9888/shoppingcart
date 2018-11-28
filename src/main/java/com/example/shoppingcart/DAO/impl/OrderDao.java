@@ -24,11 +24,18 @@ import java.util.List;
 @Service
 @ComponentScan
 
+/**
+ * DAO  pattern:  Implements  all the db operations to be done with resepct to Order table
+ */
 public class OrderDao implements OrderDaoInterface {
     @Autowired
     private SessionFactory sessionFactory;
 
-
+    /**
+     * Save the order and  return if its succesful
+     * @param order
+     * @return
+     */
     @Override
     public Boolean addOrder(Order order) {
         Session session = sessionFactory.getCurrentSession();
@@ -42,6 +49,11 @@ public class OrderDao implements OrderDaoInterface {
 
     }
 
+    /**
+     * Get all the order for a given user given.
+     * @param username
+     * @return
+     */
     @Override
     public ArrayList<Order> getOrdersByUser(User username) {
         Session session = sessionFactory.getCurrentSession();
@@ -53,6 +65,10 @@ public class OrderDao implements OrderDaoInterface {
 
     }
 
+    /**
+     * Get all the orders in the store. Usually admin uses this
+     * @return
+     */
     @Override
     public ArrayList<Order> getAllOrders() {
         Session session = sessionFactory.getCurrentSession();
@@ -61,7 +77,12 @@ public class OrderDao implements OrderDaoInterface {
         return  (ArrayList<Order>) query.getResultList();
 
     }
-    //change this to general update later
+
+    /**
+     * Given an order updates the status to checkout
+     * @param orderId
+     * @return
+     */
     @Override
     public Boolean checkoutOrder(String orderId) {
         Session session = sessionFactory.getCurrentSession();

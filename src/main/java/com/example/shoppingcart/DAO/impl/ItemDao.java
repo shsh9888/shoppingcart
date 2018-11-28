@@ -18,17 +18,29 @@ import java.util.ArrayList;
 @Service
 @ComponentScan
 
+/**
+ * DAO  pattern:  Implements  all the db operations to be done with resepct to Item table
+ */
 public class ItemDao implements ItemDaoInterface {
 
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * Get an item based on its id
+     * @param id
+     * @return
+     */
     @Override
     public Item getItem(String id) {
         Session session = sessionFactory.getCurrentSession();
         return session.find(Item.class, id);
     }
 
+    /**
+     * Get all the items in the store
+     * @return
+     */
     @Override
     public ArrayList<Item> getAllItems() {
         Session session = sessionFactory.getCurrentSession();
@@ -37,6 +49,11 @@ public class ItemDao implements ItemDaoInterface {
         return (ArrayList<Item>) query.getResultList();
     }
 
+    /**
+     * Get all the items which are added by particular seller
+     * @param username
+     * @return
+     */
     @Override
     public ArrayList<Item> getAllItemsAddedByUser(String username) {
         Session session = sessionFactory.getCurrentSession();
@@ -46,6 +63,12 @@ public class ItemDao implements ItemDaoInterface {
         return (ArrayList<Item>) query.getResultList();
     }
 
+
+    /**
+     * Search for an item based on its name
+     * @param itemName
+     * @return
+     */
     @Override
     public ArrayList<Item> searchByName(String itemName) {
         Session session = sessionFactory.getCurrentSession();
@@ -55,7 +78,11 @@ public class ItemDao implements ItemDaoInterface {
         return (ArrayList<Item>) query.getResultList();
     }
 
-
+    /**
+     * Add and item to the database.
+     * @param item
+     * @return
+     */
     @Override
     public Boolean addItem(Item item) {
         Session session = sessionFactory.getCurrentSession();
@@ -72,6 +99,11 @@ public class ItemDao implements ItemDaoInterface {
         }
     }
 
+    /**
+     * Delete an item from the db
+     * @param itemId
+     * @return
+     */
     @Override
     public Boolean deleteItem(String itemId) {
         Session session = sessionFactory.getCurrentSession();

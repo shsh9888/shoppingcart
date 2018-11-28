@@ -22,6 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
+/**
+ *  COntroller class to accept all the requests and call respective methods
+ *  to handle the requests.
+ *  This implements the frontcontroller pattern which exposes the APIs
+ *  in the form of REST
+ */
 @Controller
 public class UserController {
 
@@ -46,30 +52,61 @@ public class UserController {
 
     private ArrayList<Item> cartItems = new ArrayList<>();
 
+    /**
+     * Looks for the login get call and returns the login page
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String login(HttpServletRequest request, Model model) {
 //        model.addAttribute("user", "Shravan");
         return "login";
     }
 
+
+    /**
+     * Accepts the logout request and returns the login page
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/logout"}, method = RequestMethod.GET)
     public String logout(HttpServletRequest request, Model model) {
         loggedInUser = null;
         return "login";
     }
 
-
+    /**
+         * Looks for the register get call and returns the register page
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/register"}, method = RequestMethod.GET)
     public String register(HttpServletRequest request, Model model) {
         return "register";
     }
 
+    /**
+     * Looks for the category call and returns the page to retun the category
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/category"}, method = RequestMethod.GET)
     public String category(HttpServletRequest request, Model model) {
         model.addAttribute("user", loggedInUser);
         return "category";
     }
 
+    /**
+     * Looks for the createItem get call and return a template where we can create items
+     * Also sends categories as a part of this
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/createItemPage"}, method = RequestMethod.GET)
     public String createItem(HttpServletRequest request, Model model) {
         model.addAttribute("categoryList", categoryDao.getAll());
@@ -77,6 +114,12 @@ public class UserController {
         return "createItemPage";
     }
 
+    /**
+     * Looks for the call to products and lists all the products which can be bought
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/productList"}, method = RequestMethod.GET)
     public String getProducts(HttpServletRequest request, Model model) {
         model.addAttribute("items", itemDao.getAllItems());
@@ -85,6 +128,13 @@ public class UserController {
         return "productList";
     }
 
+    /**
+     * Looks for the checkout call and  returns the checkout page where user can select
+     * the payment method
+     * @param request
+     * @param model
+     * @return
+     */
 
     @RequestMapping(value = {"/checkout"}, method = RequestMethod.GET)
     public String checkout(HttpServletRequest request, Model model) {
@@ -93,6 +143,12 @@ public class UserController {
         return "checkout";
     }
 
+    /**
+     * Looks for the register post calls and saves the user in the db
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
     public String register(HttpServletRequest request,
                            @RequestParam(value = "name") String name,
@@ -111,6 +167,13 @@ public class UserController {
         return "register";
     }
 
+    /**
+     * Checks the user credentials with the one in the db and validates return home and login
+     * depending on the same
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/checkLogin"}, method = RequestMethod.POST)
     public String checklogin(HttpServletRequest request, @RequestParam(value = "userName") String userName, @RequestParam(value = "password") String password, Model model) {
 
@@ -124,6 +187,12 @@ public class UserController {
         return "login";
     }
 
+    /**
+     * Handles the call for add catefory recieve s the category and adds the category to db,
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/addCategory"}, method = RequestMethod.POST)
     public String addCategory(HttpServletRequest request,
                               @RequestParam(value = "name") String name,
@@ -138,6 +207,12 @@ public class UserController {
         return "category";
     }
 
+    /**
+     *  Handles the create item call from  seller and creates item
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/createItem"}, method = RequestMethod.POST)
     public String createItem(HttpServletRequest request,
                              @RequestParam(value = "name") String name,
@@ -157,7 +232,12 @@ public class UserController {
         return "createItemPage";
     }
 
-
+    /**
+     *  Handles the final order call with the proper payment method saves the order
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/placeOrder"}, method = RequestMethod.POST)
     public String placeOrder(HttpServletRequest request,
                              @RequestParam(value = "payment") String paymentMethod,
@@ -178,7 +258,12 @@ public class UserController {
 
         return "checkout";
     }
-
+    /**
+     * Handles the call to add an item in the cart
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/buyProduct"}, method = RequestMethod.GET)
     public String buyProduct(HttpServletRequest request,
                              @RequestParam(value = "id") String itemId,
@@ -194,7 +279,13 @@ public class UserController {
         return "productList";
     }
 
-
+    /**
+     * Looks for the orderlist get call and returns all the previous order
+     * based on the logged in user
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/orderList"}, method = RequestMethod.GET)
     public String getOrders(HttpServletRequest request, Model model) {
 
@@ -206,6 +297,12 @@ public class UserController {
         return "orderList";
     }
 
+    /**
+     * Search for the items based on the name
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/searchProducts"}, method = RequestMethod.POST)
     public String searchProducts(HttpServletRequest request,
                                  @RequestParam(value = "searchKey") String search,
@@ -223,6 +320,13 @@ public class UserController {
         model.addAttribute("user", loggedInUser);
         return "searchProducts";
     }
+
+    /**
+     * Returns the page where you can search for the itemss in the store.
+     * @param request
+     * @param model
+     * @return
+     */
 
     @RequestMapping(value = {"/searchProducts"}, method = RequestMethod.GET)
     public String searchProducts(HttpServletRequest request,

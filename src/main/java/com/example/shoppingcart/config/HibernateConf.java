@@ -20,6 +20,11 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Component;
 
+
+/**
+ * Handles all the configuarations for Hibernate including bean creation
+ * These  beans will be used while doing the database operations
+ */
 @Configuration
 @EnableAutoConfiguration(exclude = { //
         DataSourceAutoConfiguration.class, //

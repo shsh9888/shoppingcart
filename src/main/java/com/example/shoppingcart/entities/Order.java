@@ -7,6 +7,9 @@ import java.util.*;
 
 @Entity
 @Table(name = "orders")
+/**
+ * Entity class correspondint to the Order table in the db
+ */
 public class Order {
     @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")

@@ -6,6 +6,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "category")
+/**
+ * Entity class correspondint to the Category tablle in the db
+ */
 public class Category {
     @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")

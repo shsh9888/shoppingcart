@@ -1,5 +1,9 @@
 package com.example.shoppingcart.payment;
 
+/**
+ * An implementation of the Payment overriding the processpayment
+ * This takes care of all the payment comes through visa
+ */
 public class MasterCard implements Payment  {
     private  String CustomerName;
     private String cardnumber;

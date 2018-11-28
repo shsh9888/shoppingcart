@@ -18,11 +18,19 @@ import java.util.ArrayList;
 @Repository
 @Service
 @ComponentScan
+/**
+ * DAO  pattern:  Implements  all the db operations to be done with resepct to Category
+ */
 public class CategoryDao implements CategoryDAOInterface {
 
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * Add a category to db
+     * @param category
+     * @return
+     */
     @Override
     public Boolean addCategory(Category category) {
         Session session = sessionFactory.getCurrentSession();
@@ -36,6 +44,11 @@ public class CategoryDao implements CategoryDAOInterface {
         }
     }
 
+    /**
+     * Delete a category from the table
+     * @param categoryId
+     * @return
+     */
     @Override
     public Boolean deleteCategory(String categoryId) {
         Session session = sessionFactory.getCurrentSession();
@@ -49,6 +62,11 @@ public class CategoryDao implements CategoryDAOInterface {
         }
     }
 
+    /**
+     * Get a category based on the name
+     * @param categoryName
+     * @return
+     */
     @Override
     public Category getCategory(String categoryName) {
         Session session = sessionFactory.getCurrentSession();
@@ -61,6 +79,10 @@ public class CategoryDao implements CategoryDAOInterface {
         return null;
     }
 
+    /**
+     * Get all the categories in the table
+     * @return
+     */
     @Override
     public ArrayList<Category> getAll() {
         Session session = sessionFactory.getCurrentSession();

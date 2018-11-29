@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"com.example.shoppingcart"},{"l":"com.example.shoppingcart.config"},{"l":"com.example.shoppingcart.controllers"},{"l":"com.example.shoppingcart.DAO"},{"l":"com.example.shoppingcart.DAO.impl"},{"l":"com.example.shoppingcart.entities"},{"l":"com.example.shoppingcart.logger"},{"l":"com.example.shoppingcart.payment"}]

@@ -7,19 +7,21 @@
 </head>
 <body>
 
-<!--<th:block th:include="/_header"></th:block>-->
+<th:block th:include="/_header"></th:block>
+<th:block th:include="/_menu"></th:block>
+
 
 <div class="page-title">Item</div>
 <div th:if="${error!= null}" class="error-message" th:utext="${error}">
 </div>
 
-<form  th:action="@{/createItem}"
-       method="POST" enctype="multipart/form-data">
+<form th:action="@{/createItem}"
+      method="POST" enctype="multipart/form-data">
     <table style="text-align:left;">
 
         <tr>
             <td>Item Name *</td>
-            <td><input name="name"  /></td>
+            <td><input name="name"/></td>
 
         </tr>
         <tr>
@@ -28,16 +30,19 @@
 
         </tr>
         <tr>
-            <td>Select a Category</td>
-            <select  name="category_name">
-                <option  name="category_name" th:each="cat : ${categoryList}" th:value="${cat.getCategory_name()}" th:text="${cat.getCategory_name()}"></option>
-            </select>
+            <td>Select a Category
+            <td>
+                <select name="category_name">
+                    <option name="category_name" th:each="cat : ${categoryList}" th:value="${cat.getCategory_name()}"
+                            th:text="${cat.getCategory_name()}"></option>
+                </select>
+            </td>
         </tr>
         <tr>
             <td>&nbsp;</td>
             <td>
-                <input type="submit" value="Submit" />
-                <input type="reset" value="Reset" />
+                <input type="submit" value="Submit"/>
+                <input type="reset" value="Reset"/>
             </td>
         </tr>
     </table>
